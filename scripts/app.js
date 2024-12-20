@@ -1,5 +1,8 @@
 const BASE_URL = "https://dummyjson.com";
 const wrapperEl = document.querySelector(".products__list");
+const searchInput = document.querySelector(".search-input");
+const searchDropdown = document.querySelector(".search__drop");
+const searchItem = document.querySelector(".search__item");
 
 const fetchProducts = async (endpoint) => {
   const response = await fetch(`${BASE_URL}${endpoint}`);
@@ -33,6 +36,33 @@ const createCards = (data) => {
     wrapperEl.appendChild(card);
   });
 };
+searchInput.addEventListener("keyup", async (e)=>{
+  const value = e.target.value.trim()
+  if(value){
+      searchDropdown.style.display = "block"
+      const response = await fetch(`${BASE_URL}/products/search?q=${value}&limit=5`)
+      response
+          .json()
+          .then(res => {
+              searchDropdown.innerHTML = null
+              res.products.forEach((item)=>{
+                  const divEl = document.createElement("div")
+                  divEl.className = "search__item"
+                  divEl.dataset.id = item.id
+                  divEl.innerHTML = `
+                  <img src=${item.thumbnail} alt="">
+                  <div>
+                       <p>${item.title}</p>
+                  </div>
+                  `
+                  searchDropdown.appendChild(divEl)
+              })
+          })
+          .catch(err => console.log(err))
+  }else{
+      searchDropdown.style.display = "none"
+  }
+})
 
 wrapperEl.addEventListener("click", (e) => {
   if (e.target.closest(".products__img")) {
@@ -40,3 +70,9 @@ wrapperEl.addEventListener("click", (e) => {
       console.log(e.target.dataset.id);
   }
 });
+
+searchDropdown.addEventListener("click", (e)=>{
+    if(e.target.closest(".search__item")){
+        open(`../pages/details.html?id=${e.target.dataset.id}`, "_self");
+    }
+})
