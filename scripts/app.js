@@ -66,9 +66,9 @@ searchInput.addEventListener("keyup", async (e)=>{
 searchDropdown.addEventListener("click", (e)=>{
   console.log(e.target.dataset.id);
   
-  if(e.target.closest(".search__item")){
-      open(`./pages/details.html?id=${e.target.dataset.id}`, "_self");
-  }
+ if(e.target.closest(".search__item")){
+     open(`./pages/details.html?id=${e.target.closest(".search__item").dataset.id}`, "_self");
+ }
 })
 
 wrapperEl.addEventListener("click", (e) => {
