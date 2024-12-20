@@ -33,8 +33,8 @@
         gap: 20px;
     }
     &__item{
-        width: 255px;
-        height: 230px;
+        min-width: 255px;
+        min-height: 230px;
         border-radius: 5px;
         border: 1px solid #E0E0E0;
         padding: 20px;
@@ -50,6 +50,8 @@
     }
     &__img{
         background-color: #7B7B7B26;
+        max-width: 260px;
+        max-height: 180px;
         img{
             width: 100%;
             height: 100%;
