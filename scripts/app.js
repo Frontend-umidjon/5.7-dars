@@ -63,6 +63,13 @@ searchInput.addEventListener("keyup", async (e)=>{
       searchDropdown.style.display = "none"
   }
 })
+searchDropdown.addEventListener("click", (e)=>{
+  console.log(e.target.dataset.id);
+  
+  if(e.target.closest(".search__item")){
+      open(`./pages/details.html?id=${e.target.dataset.id}`, "_self");
+  }
+})
 
 wrapperEl.addEventListener("click", (e) => {
   if (e.target.closest(".products__img")) {
@@ -71,8 +78,3 @@ wrapperEl.addEventListener("click", (e) => {
   }
 });
 
-searchDropdown.addEventListener("click", (e)=>{
-    if(e.target.closest(".search__item")){
-        open(`../pages/details.html?id=${e.target.dataset.id}`, "_self");
-    }
-})
